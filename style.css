@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.chat-container {
+    width: 418px;
+    margin: 30px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    
+}
+
+.chat-log {
+    height: 300px;
+    overflow-y: scroll;
+    border-bottom: 1px solid #ccc ;
+    margin-bottom: 10px;
+}
+
+.chat-input {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+#user-input {
+    flex: 1;
+    padding:  5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007bff;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: 0.9s;
+}
+
+button:hover {
+    background-color: #002bff;
+}
+
+
+/* تخصيصات لرسائل الشات بوت */
+.message.bot {
+    background-color: #ffffff; /* خلفية بيضاء */
+    color: #007bff; /* لون نص أزرق */
+    text-align: left; /* محاذاة النص إلى اليسار */
+    padding: 5px 10px; /* تباعد داخلي للنص */
+    border-radius: 5px; /* زوايا مستديرة */
+    margin-bottom: 10px; /* تباعد أسفلي */
+    white-space: nowrap; /* منع السطور الجديدة في الرسائل */
+    overflow: hidden; /* إخفاء النص الزائد في الحاوية */
+    max-width: 80%; /* حد أقصى لعرض الرسالة للتجنب من تمددها بشكل كبير */
+    transition: opacity 0.5s ease; /* تأثير طي النص */
+}
+
+/* تطبيق تأثير طي النص */
+.message.bot:before {
+    content: '...'; /* إظهار النقاط الثلاث قبل عرض النص */
+    opacity: 1; /* تأثير الظهور */
+    transition: opacity 0.5s ease; /* تأثير طي النص */
+}
+
+/* تأثير عرض النص بعد ظهور النقاط */
+.message.bot.show-text:before {
+    opacity: 0; /* إخفاء النقاط */
+}
+
+
+/* تخصيصات لرسائل المستخدم */
+.message.user {
+    background-color: #f1f1f1; /* خلفية رمادية */
+    color: #000; /* لون نص أسود */
+    text-align: right; /* محاذاة النص إلى اليمين */
+    padding: 5px 10px; /* تباعد داخلي للنص */
+    border-radius: 5px; /* زوايا مستديرة */
+    margin-bottom: 10px; /* تباعد أسفلي */
+}
+
