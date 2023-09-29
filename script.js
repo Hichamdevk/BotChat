@@ -2,68 +2,101 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatLog = document.getElementById('chat-log');
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
+    const deleteButton = document.getElementById('delete-button');
+
+    // تحميل الرسائل وردود البوت من localStorage
+    const storedData = localStorage.getItem('chatData');
+    const chatData = storedData ? JSON.parse(storedData) : { messages: [], botResponses: [] };
+
+    // عرض الرسائل وردود البوت المحملة
+    chatData.messages.forEach(message => appendMessage(message.message, message.sender));
+    chatData.botResponses.forEach(response => appendMessage(response, 'bot'));
 
     sendButton.addEventListener("click", function () {
         const userMessage = userInput.value;
         if (userMessage) {
             appendMessage(userMessage, "user");
-            userInput.disabled = true; // تعطيل حقل إدخال المستخدم
+            userInput.disabled = true;
+
+            // إضافة الرسالة إلى localStorage
+            chatData.messages.push({ message: userMessage, sender: "user" });
+            localStorage.setItem('chatData', JSON.stringify(chatData));
 
             setTimeout(function () {
                 const botResponse = getBotResponse(userMessage);
                 appendMessage(botResponse, 'bot');
-                userInput.disabled = false; // إعادة تمكين حقل إدخال المستخدم بعد مرور 2 ثانية
+                userInput.disabled = false;
+
+                // إضافة رد البوت إلى localStorage
+                chatData.botResponses.push(botResponse);
+                localStorage.setItem('chatData', JSON.stringify(chatData));
             }, 3000);
         }
 
         userInput.value = "";
     });
 
+    deleteButton.addEventListener("click", function () {
+        const confirmDelete = confirm("هل أنت متأكد أنك تريد حذف جميع الرسائل وردود البوت؟");
+        if (confirmDelete) {
+            localStorage.removeItem('chatData');
+            chatLog.innerHTML = "";
+        }
+    });
+
     function appendMessage(message, sender) {
         const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message", sender);
 
-        // تحديد الفئة بناءً على المرسل (user أو bot)
+        const messageContent = document.createElement("span");
+        messageContent.classList.add("message-content");
+        messageContent.textContent = message;
+        messageDiv.appendChild(messageContent);
+
         if (sender === "user") {
-            messageDiv.classList.add("message", "user");
-            messageDiv.textContent = message;
-        } else if (sender === "bot") {
-            // إضافة النقاط الثلاث قبل رسالة الشات بوت
-            messageDiv.classList.add("message", "bot");
-            messageDiv.style.opacity = "0"; // تخفيض الشفافية للرسالة
-            messageDiv.innerHTML = "...";
-
-            // إضافة الرسالة بعد تأخير 0.5 ثانية
-            setTimeout(function () {
-                messageDiv.style.opacity = "1"; // زيادة الشفافية لعرض الرسالة
-                messageDiv.textContent = message;
-            }, 100);
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "حذف";
+            deleteButton.addEventListener("click", function () {
+                deleteUserMessage(messageDiv);
+            });
+            messageDiv.appendChild(deleteButton);
         }
 
         chatLog.appendChild(messageDiv);
     }
 
-    const stories = [
-        // القصة بدون <br> تقسيم الأسطر
-        "كان هناك ساحر قوي يعيش في غابة سحرية. كان لديه قطة سوداء ساحرة تُدعى مياو. في يوم من الأيام، طلب الساحر من مياو أن تساعده في إيقاف عصاه السحرية التي أصبحت تفعل أشياء غريبة. بدأت مياو بمغامرتها لإيقاف العصا واكتشفت أنها تحتاج إلى السفر عبر الأرض السحرية ومواجهة تحديات كبيرة. هل ستنجح مياو في مساعدة الساحر؟"
-        // يمكنك إضافة المزيد من القصص هنا...
-    ];
+    function deleteUserMessage(messageDiv) {
+        chatLog.removeChild(messageDiv);
+        const messageText = messageDiv.querySelector('.message-content').textContent;
 
-    function getBotResponse(userMessage) {
-        if (userMessage.includes('السلام ')){
-            return('وعليكم السلام . كيف يمكنني مساعدتك اليوم ؟')
-        }
-        if (userMessage.includes('قصة')) {
-            // اختيار قصة عشوائية من المصفوفة
-            const randomIndex = Math.floor(Math.random() * stories.length);
-            const randomStory = stories[randomIndex];
+        // حذف الرسالة من localStorage
+        const userMessages = chatData.messages.filter(msg => msg.message !== messageText);
+        chatData.messages = userMessages;
 
-            return randomStory;
-        }
+        // حذف رد البوت المتعلق بالرسالة من localStorage
+        const botResponses = chatData.botResponses.filter(response => response !== messageText);
+        chatData.botResponses = botResponses;
 
-        // ... (الشيفرة الأخرى هنا)
+        localStorage.setItem('chatData', JSON.stringify(chatData));
     }
 
-    // عند عرض رسالة البوت بعد تأخير
-    const botMessage = document.querySelector('.message.bot');
-    botMessage.classList.add('show-text');
+    function getBotResponse(userMessage) {
+        try {
+            if (userMessage.includes('السلام ')) {
+                return ('وعليكم السلام . كيف يمكنني مساعدتك اليوم؟');
+            }
+            if (userMessage.includes('قصة')) {
+                const fullStory = stories.join('<br>');
+                chatData.botResponses.push(fullStory);
+                localStorage.setItem('chatData', JSON.stringify(chatData));
+                return fullStory;
+            }
+
+            if (userMessage.includes('hello')) {
+                return ('hi! my friend');
+            }
+        } catch (error) {
+            console.error("Error saving bot response:", error);
+        }
+    }
 });
