@@ -1,93 +1,131 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f5f5f5;
+    background-color: rgb(39, 39, 39);
     margin: 0;
     padding: 0;
+    align-items: center;
+   padding: 10px 20px;
+    /*display: flex;
+    justify-content: center;*/
+    font-family: Inter;
+}
+
+.ad-space {
+    width: 80%;
+    height: 50px;
+    background-color: white;
+    margin-left: 8%;
 }
 
 .chat-container {
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin-top: 20px;
+    width: 80%px;
+height: 100vh;
+flex-shrink: 0;
+border-radius: 5px;
+background: #D9D9D9;
+
 }
 
 .chat-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
+    width: 100%;
+    align-items: center;
+    flex-shrink: 0;
+    background: #4F98CA;
+    padding: 10px 0px;
+    border-radius: 5px 0 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .chat-header h1 {
-    margin: 0;
+    font-size: 1.5rem;
+    color: #EFFFFB;
+    margin-right: 20px;
+    
 }
 
+.logo {
+    margin-left: 20px;
+    align-items: center;
+}
+.chat {
+    padding: 10px 20px;
+    
+}
+
+span {
+    font-size: 1rem;
+}
 .chat-log {
-    height: 300px;
+    height: 450px;
     overflow-y: scroll;
-    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 15px;
+background: #EFFFFB;
+
+flex-shrink: 0;
 }
 
 .chat-input {
-    display: flex;
     align-items: center;
-    padding: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 #user-input {
-    flex: 1;
-    padding: 10px;
+    padding: 1vw 3vw;
+    width: 80%;
+    background-color: #EFFFFB;
+    flex-shrink: 0;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 #send-button {
-    background-color: #007bff;
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    color: #fff;
     border-radius: 5px;
-    margin-left: 10px;
-    transition: background-color 0.3s ease-in-out;
+    padding: 1vw 3vw;
+    cursor: pointer;
+
+background: #50D890;
+transition: 0.9s;
 }
 
 #send-button:hover {
-    background-color: #0056b3;
+    background: #37b57f;
 }
+
+#delete-button {
+    padding: 0.5vw 0.5vw;
+    border: none;
+    cursor: pointer;
+    color: red;
+}
+
+.delete-button {
+    padding: 0.5vw 0.5vw;
+    border: none;
+    cursor: pointer;
+    color: red;
+}
+
 
 
 
 /* تخصيصات لرسائل الشات بوت */
 .message.bot {
     background-color: #ffffff; /* خلفية بيضاء */
-    color: #007bff; /* لون نص أزرق */
+    color: black; /* لون نص أزرق */
     text-align: left; /* محاذاة النص إلى اليسار */
     padding: 5px 10px; /* تباعد داخلي للنص */
     border-radius: 5px; /* زوايا مستديرة */
     margin-bottom: 10px; /* تباعد أسفلي */
-    white-space: nowrap; /* منع السطور الجديدة في الرسائل */
-    /*overflow: hidden; /* إخفاء النص الزائد في الحاوية */
-    /*max-width: 80%; /* حد أقصى لعرض الرسالة للتجنب من تمددها بشكل كبير */
-    /*transition: opacity 0.5s ease; /* تأثير طي النص */
+    letter-spacing: 0.2px;
+    font-size: 1rem;
 }
-
-/* تطبيق تأثير طي النص */
-.message.bot:before {
-    content: '...'; /* إظهار النقاط الثلاث قبل عرض النص */
-    opacity: 1; /* تأثير الظهور */
-    transition: opacity 0.5s ease; /* تأثير طي النص */
-}
-
-/* تأثير عرض النص بعد ظهور النقاط */
-.message.bot.show-text:before {
-    opacity: 0; /* إخفاء النقاط */
-}
-
 
 /* تخصيصات لرسائل المستخدم */
 .message.user {
@@ -97,28 +135,56 @@ body {
     padding: 5px 10px; /* تباعد داخلي للنص */
     border-radius: 5px; /* زوايا مستديرة */
     margin-bottom: 10px; /* تباعد أسفلي */
+    font-size: 1.5rem;
+
+}
+
+.message.bot:before {
+    content: '...'; /* إظهار النقاط الثلاث قبل عرض النص */
+    opacity: 1; /* تأثير الظهور */
+    transition: opacity 0.5s ease; /* تأثير طي النص */
+}
+
+/* تأثير عرض النص بعد ظهور النقاط */
+.message.bot.show-text:before {
+    opacity: 0; /* إخفاء النقاط */
+ }
+
+
+
+ @media (max-width: 768px) {
+    .chat-container {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .chat-log {
+        height: 300px;
+    }
+
+    #user-input {
+        width: 70%;
+        font-size: 1rem; /* حجم النص يمكن تكبيره حسب الحاجة */
+    }
+
+    #send-button {
+        padding: 3vh 5vw;
+        font-size: 1rem; /* حجم النص يمكن تكبيره حسب الحاجة */
+    }
+
+    /* تكبير حجم النص في رسائل المستخدم والبوت */
+    .message {
+        font-size: 1rem;
+    }
+
+    .message.user {
+        font-size: 1.2rem; /* تكبير حجم النص لرسائل المستخدم بشكل أكبر */
+    }
+
+    .message.bot {
+        font-size: 1.2rem; /* تكبير حجم النص لرسائل البوت بشكل أكبر */
+    }
 }
 
 
 
-#delete-button {
-    background-color: #ff3333; /* لون الخلفية */
-    color: #fff; /* لون النص */
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-left: 10px; /* تحديث المارجن ليظهر على اليمين */
-}
-
-#delete-button:hover {
-    background-color: #ff0000; /* تغيير لون الخلفية عند التحويم */
-}
-
-
-#add {
-    width: 100%;
-    height: 100px;
-    background-color: #ff0000;
-    margin-top: 50px;
-}
