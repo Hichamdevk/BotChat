@@ -5,26 +5,23 @@ body {
     margin: 0;
     padding: 0;
     align-items: center;
-   padding: 10px 20px;
-    /*display: flex;
-    justify-content: center;*/
+    padding: 10px 20px;
     font-family: Inter;
 }
 
 .ad-space {
-    height : 90px;
-    width : 728px;
+    height: 90px;
+    width: 100%; /* تم تعديل هنا لتناسب العرض */
     background-color: white;
-    
 }
 
 .chat-container {
-    width: 80%px;
-height: 100vh;
-flex-shrink: 0;
-border-radius: 5px;
-background: #D9D9D9;
-
+    width: 80%;
+    height: 100vh;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #D9D9D9;
+    margin: 0 auto; /* توسيع المركز */
 }
 
 .chat-header {
@@ -33,7 +30,7 @@ background: #D9D9D9;
     flex-shrink: 0;
     background: #4F98CA;
     padding: 10px 0px;
-    border-radius: 5px 0 5px 0;
+    border-radius: 5px 5px 0 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,30 +40,29 @@ background: #D9D9D9;
     font-size: 1.5rem;
     color: #EFFFFB;
     margin-right: 20px;
-    
 }
 
 .logo {
     margin-left: 20px;
     align-items: center;
 }
+
 .chat {
     padding: 10px 20px;
-    
 }
 
 span {
     font-size: 1rem;
 }
+
 .chat-log {
     height: 450px;
     overflow-y: scroll;
     border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
     border-radius: 15px;
-background: #EFFFFB;
-
-flex-shrink: 0;
+    background: #EFFFFB;
+    flex-shrink: 0;
 }
 
 .chat-input {
@@ -77,7 +73,7 @@ flex-shrink: 0;
 
 #user-input {
     padding: 1vw 3vw;
-    width: 80%;
+    width: 70%; /* تم تعديل هنا لتناسب العرض */
     background-color: #EFFFFB;
     flex-shrink: 0;
     border: 1px solid #ccc;
@@ -89,9 +85,8 @@ flex-shrink: 0;
     border-radius: 5px;
     padding: 1vw 3vw;
     cursor: pointer;
-
-background: #50D890;
-transition: 0.9s;
+    background: #50D890;
+    transition: 0.9s;
 }
 
 #send-button:hover {
@@ -112,50 +107,42 @@ transition: 0.9s;
     color: red;
 }
 
-
-
-
 /* تخصيصات لرسائل الشات بوت */
 .message.bot {
-    background-color: #ffffff; /* خلفية بيضاء */
-    color: black; /* لون نص أزرق */
-    text-align: left; /* محاذاة النص إلى اليسار */
-    padding: 5px 10px; /* تباعد داخلي للنص */
-    border-radius: 5px; /* زوايا مستديرة */
-    margin-bottom: 10px; /* تباعد أسفلي */
+    background-color: #ffffff;
+    color: black;
+    text-align: left;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
     letter-spacing: 0.2px;
     font-size: 1rem;
 }
 
 /* تخصيصات لرسائل المستخدم */
 .message.user {
-    background-color: #f1f1f1; /* خلفية رمادية */
-    color: #000; /* لون نص أسود */
-    text-align: right; /* محاذاة النص إلى اليمين */
-    padding: 5px 10px; /* تباعد داخلي للنص */
-    border-radius: 5px; /* زوايا مستديرة */
-    margin-bottom: 10px; /* تباعد أسفلي */
+    background-color: #f1f1f1;
+    color: #000;
+    text-align: right;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
     font-size: 1.5rem;
-
 }
 
 .message.bot:before {
-    content: '...'; /* إظهار النقاط الثلاث قبل عرض النص */
-    opacity: 1; /* تأثير الظهور */
-    transition: opacity 0.5s ease; /* تأثير طي النص */
+    content: '...';
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
-/* تأثير عرض النص بعد ظهور النقاط */
 .message.bot.show-text:before {
-    opacity: 0; /* إخفاء النقاط */
- }
+    opacity: 0;
+}
 
-
-
- @media (max-width: 768px) {
+@media (max-width: 768px) {
     .chat-container {
         width: 100%;
-        margin-left: 0;
     }
 
     .chat-log {
@@ -164,27 +151,31 @@ transition: 0.9s;
 
     #user-input {
         width: 70%;
-        font-size: 1rem; /* حجم النص يمكن تكبيره حسب الحاجة */
+        font-size: 1rem;
     }
 
     #send-button {
         padding: 3vh 5vw;
-        font-size: 1rem; /* حجم النص يمكن تكبيره حسب الحاجة */
+        font-size: 1rem;
     }
 
-    /* تكبير حجم النص في رسائل المستخدم والبوت */
     .message {
         font-size: 1rem;
     }
 
     .message.user {
-        font-size: 1.2rem; /* تكبير حجم النص لرسائل المستخدم بشكل أكبر */
+        font-size: 1.2rem;
     }
 
     .message.bot {
-        font-size: 1.2rem; /* تكبير حجم النص لرسائل البوت بشكل أكبر */
+        font-size: 1.2rem;
+    }
+
+    .chat-container {
+        width: 100%;
+        height: 100vh;
+        flex-shrink: 0;
+        border-radius: 5px;
+        background: #D9D9D9;
     }
 }
-
-
-
